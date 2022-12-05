@@ -5,6 +5,11 @@
 
 void UDay2Functions::DetermineRochambeauOutcome(FString input, TEnumAsByte<RochambeauThrow>& playerThrow, TEnumAsByte<RochambeauOutcome>& outcome)
 {
+	
+	char opp = input[0];
+
+	
+	
 	playerThrow = Paper;
 	outcome = Tye;
 }
