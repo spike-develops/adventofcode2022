@@ -23,6 +23,7 @@ enum RochambeauOutcome
 	Loss = 0 UMETA(DisplayName = "lose"), 
 	Tye = 3 UMETA(DisplayName = "tie"),
 	Win=6 UMETA(DisplayName = "win")
+	
 };
 
 /**
@@ -33,7 +34,12 @@ class ADVENTOFCODE2022_API UDay2Functions : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	
-	
 	UFUNCTION(BlueprintCallable,Category=Advent)
 	static void DetermineRochambeauOutcome(FString input,TEnumAsByte<enum RochambeauThrow>& playerThrow, TEnumAsByte<enum RochambeauOutcome>& outcome);
+	UFUNCTION(BlueprintCallable,Category=Advent)
+	static void DetermineRochambeauThrow(FString input, TEnumAsByte<RochambeauThrow>& playerThrow,
+	                              TEnumAsByte<RochambeauOutcome>& outcome);
+
+	static TEnumAsByte<RochambeauThrow> ProcessThrow(char input);
+	static TEnumAsByte<RochambeauOutcome> ProcessOutcome(char input);
 };
