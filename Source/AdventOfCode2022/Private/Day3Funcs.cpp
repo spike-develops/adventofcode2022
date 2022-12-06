@@ -4,25 +4,41 @@
 #include "Day3Funcs.h"
 
 
-void UDay3Funcs::GetPriorityArraysFromStrings(FString compartment1, FString compartment2, TArray<int>& items1,
-	TArray<int>& items2)
+void UDay3Funcs::GetPriorityArraysFromString(FString compartment1, TArray<int>& items1)
 {
 	items1 = TArray<int>();
-	items2 = TArray<int>();
+	//items2 = TArray<int>();
 	items1.Init(0,53);
-	items2.Init(0,53);
+	//items2.Init(0,53);
 	
 	for (int i = 0; i<compartment1.Len(); i++)
 	{
 		char chr1 =compartment1[i];
-		char chr2 =compartment2[i];
+		//char chr2 =compartment2[i];
 
 		int index1 = ConvertCharToPriority(chr1);
-		int index2 = ConvertCharToPriority(chr2);
+		//int index2 = ConvertCharToPriority(chr2);
 
 		items1[index1] = items1[index1]+1;
-		items2[index2] = items2[index2]+1;
+		//items2[index2] = items2[index2]+1;
 	}
+}
+
+FString UDay3Funcs::GetStringFromPriority(int priority)
+{
+	if(priority<27)
+	{
+		priority = priority + 'a';
+		priority--;
+
+	}else
+	{
+		priority = priority + 'A';
+		priority = priority -27;
+	}
+	char ch = static_cast<char>(priority);
+
+	return FString::Chr(ch);
 }
 
 int UDay3Funcs::FindMatchingPriority(TArray<int> items1, TArray<int> items2)

@@ -23,8 +23,11 @@ class ADVENTOFCODE2022_API UDay3Funcs : public UBlueprintFunctionLibrary
 	static int FindMatchingPriorityTriple(TArray<int> items1, TArray<int> items2, TArray<int> items3);
 	
 	UFUNCTION(BlueprintCallable, Category=Advent)
-	static void GetPriorityArraysFromStrings(FString compartment1, FString compartment2, TArray<int>& items1, TArray<int>& items2);
+	static void GetPriorityArraysFromString(FString compartment1, TArray<int>& items1);
 
+
+	UFUNCTION(BlueprintCallable, Category=Advent)
+	static FString GetStringFromPriority(int priority);
 	
 	static int ConvertCharToPriority(char input);
 	
