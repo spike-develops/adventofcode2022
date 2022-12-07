@@ -19,4 +19,7 @@ class ADVENTOFCODE2022_API UAdventTextReader : public UBlueprintFunctionLibrary
 	
 	UFUNCTION(BlueprintCallable, Category = "File I/O")
 	static FString LoadFileToString(FString Filename);
+
+	UFUNCTION(BlueprintCallable, Category=Advent)
+	static void ParseIntsByDelimiters(FString inputString,TArray<FString> delimiters,TArray<int>& foundInts);
 };

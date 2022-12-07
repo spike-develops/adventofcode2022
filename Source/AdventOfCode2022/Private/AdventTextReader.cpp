@@ -3,8 +3,12 @@
 
 
 #include "AdventTextReader.h"
+
+#include <execution>
 #include <Runtime/Core/Public/Misc/Paths.h>
 #include <Runtime/Core/Public/HAL/PlatformFileManager.h>
+
+#include "Misc/DefaultValueHelper.h"
 
 
 FString UAdventTextReader::LoadFileToString(FString Filename)
@@ -19,4 +23,33 @@ FString UAdventTextReader::LoadFileToString(FString Filename)
 		FFileHelper::LoadFileToString(result, *myFile);
 	}
 	return result;
+}
+
+void UAdventTextReader::ParseIntsByDelimiters(FString inputString, TArray<FString> delimiters, TArray<int>& foundInts)
+{
+	//create an int array of equal size (since we'll assume the last delimiter is \n) ?
+	foundInts = TArray<int>();
+	foundInts.Init(-1,delimiters.Num());
+	
+	//if this works, i'll chuckle
+	FString remainderString;
+	for(int i = 0; i< delimiters.Num(); i++)
+	{
+		FString strToParse;
+		inputString.Split(delimiters[i],&strToParse, &remainderString);
+
+		if(int parsedInt = -1; FDefaultValueHelper::ParseInt(strToParse,parsedInt))
+		{
+			foundInts[i] = parsedInt;
+		}
+		else
+		{
+			return;
+		}
+		
+		//make the input string equal to remainder (so we dont keep processing the start of the string
+		inputString = remainderString;
+	}
+	
+	
 }
