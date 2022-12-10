@@ -25,11 +25,20 @@ FString UAdventTextReader::LoadFileToString(FString Filename)
 	return result;
 }
 
-void UAdventTextReader::ParseIntsByDelimiters(FString inputString, TArray<FString> delimiters, TArray<int>& foundInts)
+void UAdventTextReader::ParseIntsByDelimiters(FString inputString, TArray<FString> delimiters, TArray<int>& foundInts, bool remainderInclusive)
 {
 	//create an int array of equal size (since we'll assume the last delimiter is \n) ?
 	foundInts = TArray<int>();
-	foundInts.Init(-1,delimiters.Num());
+
+	if(remainderInclusive)
+	{
+		foundInts.Init(-1,delimiters.Num()+1);
+	}
+	else
+	{
+		foundInts.Init(-1,delimiters.Num());
+	}
+
 	
 	//if this works, i'll chuckle
 	FString remainderString;
@@ -50,6 +59,12 @@ void UAdventTextReader::ParseIntsByDelimiters(FString inputString, TArray<FStrin
 		//make the input string equal to remainder (so we dont keep processing the start of the string
 		inputString = remainderString;
 	}
-	
-	
+
+	if(remainderInclusive)
+	{
+		if(int parsedInt = -1; FDefaultValueHelper::ParseInt(inputString,parsedInt))
+		{
+			foundInts[delimiters.Num()] = parsedInt;
+		}
+	}
 }
